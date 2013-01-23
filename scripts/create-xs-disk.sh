@@ -14,7 +14,9 @@ sudo dd if=/usr/lib/syslinux/mbr.bin of=/dev/loop0
 echo ",,6,*" | sudo sfdisk /dev/loop0 -u M -D
 
 sudo kpartx -d xsdrive.raw
+sleep 1
 sudo kpartx -av xsdrive.raw
+sleep 1
 
 # Make filesystem
 sudo mkfs.vfat /dev/mapper/loop0p1
@@ -32,6 +34,15 @@ sudo cp /tmp/xstgt/boot/isolinux/* /tmp/xstgt/
 sudo mv /tmp/xstgt/{iso,sys}linux.cfg
 sudo mv /tmp/xstgt/{iso,sys}linux.bin
 sudo cp /usr/lib/syslinux/mboot.c32 /tmp/xstgt/
+
+
+# Initrd re-generation
+rm -rf ./initrd && mkdir ./initrd
+cd ./initrd
+zcat /tmp/xstgt/install.img | sudo cpio -ivdum
+#bash --rcfile /dev/null -i
+sudo find . -print | sudo cpio -o -H newc | xz --format=lzma | sudo dd of=/tmp/xstgt/install.img
+cd ..
 
 sudo umount /tmp/xsbp
 sudo umount /tmp/xstgt
