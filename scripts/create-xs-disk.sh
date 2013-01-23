@@ -2,6 +2,8 @@
 
 # Useful: http://blogs.citrix.com/2010/10/18/how-to-install-citrix-xenserver-from-a-usb-key-usb-built-from-windows-os/
 
+set -eux
+
 dd if=/dev/zero of=xsdrive.raw bs=1048576 count=1024
 
 sudo kpartx -av xsdrive.raw
