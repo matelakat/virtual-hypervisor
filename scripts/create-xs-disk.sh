@@ -1,6 +1,8 @@
 #!/bin/bash
 
-# Useful: http://blogs.citrix.com/2010/10/18/how-to-install-citrix-xenserver-from-a-usb-key-usb-built-from-windows-os/
+# Useful: 
+# http://blogs.citrix.com/2010/10/18/how-to-install-citrix-xenserver-from-a-usb-key-usb-built-from-windows-os/
+# http://scnr.net/blog/index.php/archives/177
 
 set -eux
 
@@ -41,8 +43,25 @@ rm -rf ./initrd && mkdir ./initrd
 cd ./initrd
 zcat /tmp/xstgt/install.img | sudo cpio -ivdum
 #bash --rcfile /dev/null -i
+(
+cat << EOF
+<?xml version="1.0"?>
+<installation srtype="ext">
+<primary-disk>sda</primary-disk>
+<keymap>us</keymap>
+<root-password>somepass</root-password>
+<source type="local"></source>
+<admin-interface name="eth0" proto="dhcp" />
+<timezone>America/Los_Angeles</timezone>
+</installation>
+EOF
+) | sudo dd of=answers.txt
+
 sudo find . -print | sudo cpio -o -H newc | xz --format=lzma | sudo dd of=/tmp/xstgt/install.img
 cd ..
+
+# bash --rcfile /dev/null -i
+sudo cp syslinux.cfg /tmp/xstgt/syslinux.cfg
 
 sudo umount /tmp/xsbp
 sudo umount /tmp/xstgt
