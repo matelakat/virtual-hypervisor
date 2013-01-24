@@ -32,8 +32,12 @@ cat > answers.txt << EOF
 <source type="local"></source>
 <admin-interface name="eth0" proto="dhcp" />
 <timezone>America/Los_Angeles</timezone>
+<script stage="filesystem-populated" type="url">file:///postinst.sh</script>
 </installation>
 EOF
+
+cp ../postinst.sh ./
+cp ../firstboot.sh ./
 
 # Re-pack initrd
 find . -print | cpio -o -H newc | xz --format=lzma | dd of=../xstgt/install.img
