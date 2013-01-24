@@ -8,43 +8,17 @@
 
 set -eux
 
-dd if=/dev/zero of=xsdrive.raw bs=1048576 count=1024
-
-sudo kpartx -av xsdrive.raw
-
-sudo dd if=/usr/lib/syslinux/mbr.bin of=/dev/loop0
-# USE sudo losetup -a to get the correct loopback device number!
-
-echo ",,6,*" | sudo sfdisk /dev/loop0 -u M -D
-
-sudo kpartx -d xsdrive.raw
-sleep 1
-sudo kpartx -av xsdrive.raw
-sleep 1
-
-# Make filesystem
-sudo mkfs.vfat /dev/mapper/loop0p1
-
-sudo syslinux /dev/mapper/loop0p1
-
-sudo mkdir -p /tmp/xsbp && sudo mount -o loop hypervisor.iso /tmp/xsbp
-
-sudo mkdir -p /tmp/xstgt && sudo mount -t vfat /dev/mapper/loop0p1 /tmp/xstgt
-
-sudo cp -a /tmp/xsbp/* /tmp/xstgt/
-
-#sudo cp /tmp/xstgt/boot/isolinux/* /tmp/xstgt/
-
-#sudo mv /tmp/xstgt/{iso,sys}linux.cfg
-#sudo mv /tmp/xstgt/{iso,sys}linux.bin
-#sudo cp /usr/lib/syslinux/mboot.c32 /tmp/xstgt/
-
+# extract iso
+rm -rf xstgt && mkdir -p xstgt && 7z x hypervisor.iso -oxstgt
 
 # Initrd re-generation
-rm -rf ./initrd && mkdir ./initrd
+sudo rm -rf ./initrd && mkdir ./initrd
+
+# extract initrd
 cd ./initrd
-zcat /tmp/xstgt/install.img | sudo cpio -ivdum
-#bash --rcfile /dev/null -i
+zcat ../xstgt/install.img | sudo cpio -ivdum
+
+# Do the remastering
 (
 cat << EOF
 <?xml version="1.0"?>
@@ -59,22 +33,17 @@ cat << EOF
 EOF
 ) | sudo dd of=answers.txt
 
-sudo find . -print | sudo cpio -o -H newc | xz --format=lzma | sudo dd of=/tmp/xstgt/install.img
+# Re-pack initrd
+sudo find . -print | sudo cpio -o -H newc | xz --format=lzma | sudo dd of=../xstgt/install.img
 cd ..
 
 # bash --rcfile /dev/null -i
-sudo cp syslinux.cfg /tmp/xstgt/boot/isolinux/isolinux.cfg
+sudo cp syslinux.cfg ./xstgt/boot/isolinux/isolinux.cfg
 
-sudo umount /tmp/xsbp
-
-echo '/boot 1000' > /tmp/sortlist
+echo '/boot 1000' > sortlist
 sudo mkisofs -joliet -joliet-long -r -b boot/isolinux/isolinux.bin \
 -c boot/isolinux/boot.cat -no-emul-boot -boot-load-size 4 \
--boot-info-table -sort /tmp/sortlist -V "My Custom XenServer ISO" -o customxs.iso /tmp/xstgt/
-
-sudo umount /tmp/xstgt
-
-sudo kpartx -d xsdrive.raw
+-boot-info-table -sort sortlist -V "My Custom XenServer ISO" -o customxs.iso ./xstgt/
 
 # Convert and attach the raw image to the machine
 vboxmanage storagectl STUFF --name "IDECONTROLLER" --remove || true
