@@ -12,15 +12,17 @@ set -eux
 rm -rf xstgt && mkdir -p xstgt && 7z x hypervisor.iso -oxstgt
 
 # Initrd re-generation
-sudo rm -rf ./initrd && mkdir ./initrd
+rm -rf ./initrd && mkdir ./initrd
 
 # extract initrd
 cd ./initrd
-zcat ../xstgt/install.img | sudo cpio -ivdum
+
+(
+cat << FAKEROOT
+zcat ../xstgt/install.img | cpio -ivdum
 
 # Do the remastering
-(
-cat << EOF
+cat > answers.txt << EOF
 <?xml version="1.0"?>
 <installation srtype="ext">
 <primary-disk>sda</primary-disk>
@@ -31,17 +33,20 @@ cat << EOF
 <timezone>America/Los_Angeles</timezone>
 </installation>
 EOF
-) | sudo dd of=answers.txt
 
 # Re-pack initrd
-sudo find . -print | sudo cpio -o -H newc | xz --format=lzma | sudo dd of=../xstgt/install.img
+find . -print | cpio -o -H newc | xz --format=lzma | dd of=../xstgt/install.img
+
+FAKEROOT
+) | fakeroot bash
+
 cd ..
 
 # bash --rcfile /dev/null -i
-sudo cp syslinux.cfg ./xstgt/boot/isolinux/isolinux.cfg
+cp syslinux.cfg ./xstgt/boot/isolinux/isolinux.cfg
 
 echo '/boot 1000' > sortlist
-sudo mkisofs -joliet -joliet-long -r -b boot/isolinux/isolinux.bin \
+mkisofs -joliet -joliet-long -r -b boot/isolinux/isolinux.bin \
 -c boot/isolinux/boot.cat -no-emul-boot -boot-load-size 4 \
 -boot-info-table -sort sortlist -V "My Custom XenServer ISO" -o customxs.iso ./xstgt/
 
