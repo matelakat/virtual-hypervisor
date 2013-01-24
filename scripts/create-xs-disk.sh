@@ -5,6 +5,7 @@
 # http://scnr.net/blog/index.php/archives/177
 # http://www.ithastobecool.com/tag/xenclient/
 # http://forums.citrix.com/message.jspa?messageID=1479624
+# http://blogs.citrix.com/2012/07/13/xs-unattended-install/
 
 set -eux
 
@@ -19,7 +20,7 @@ cd ./initrd
 
 (
 cat << FAKEROOT
-zcat ../xstgt/install.img | cpio -ivdum
+zcat ../xstgt/install.img | cpio -idum
 
 # Do the remastering
 cat > answers.txt << EOF
