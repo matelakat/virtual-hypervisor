@@ -5,13 +5,13 @@ case "${1-kvm}" in
   "virtualbox" )
 scripts/create_customxs_iso.sh
 
-scripts/create_vm.sh
+scripts/virtualbox_create_vm.sh
 
-scripts/attach_customxs_iso.sh
+scripts/virtualbox_attach_customxs_iso.sh
 
-scripts/start_vm_and_wait_for_shut.sh
+scripts/virtualbox_start_vm_and_wait_for_shut.sh
 
-scripts/detach_customxs_iso.sh
+scripts/virtualbox_detach_customxs_iso.sh
 ;;
   "kvm" )
 scripts/create_customxs_iso.sh
