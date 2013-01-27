@@ -26,7 +26,7 @@ zcat ../xstgt/install.img | cpio -idum
 
 # Do the remastering
 cp ../data/answers.txt ./
-cp ../postinst.sh ./
+cp ../data/postinst.sh ./
 cp ../firstboot.sh ./
 
 # Re-pack initrd
