@@ -51,6 +51,12 @@ start the vm, for the kvm case, you should type:
 In the VirtualBox case, go to the UI, and start the VM there. In both cases
 the ssh port of the VM is forwarded to the host's 2222 port.
 
+How Can I Access the Virtual Hypervisor?
+========================================
+The virtual hypervisor's ssh port is forwarded to your localhost's 2222 port.
+
+    ssh -p 2222 root@localhost
+
 What is the Password?
 =====================
 The password for the root user is (look at data/answerfile.xml):
