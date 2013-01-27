@@ -1,4 +1,5 @@
 #!/bin/bash
+set -eux
 
 scripts/download_hypervisor_iso.sh
 
