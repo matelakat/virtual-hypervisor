@@ -55,11 +55,3 @@ mkisofs -joliet -joliet-long -r -b boot/isolinux/isolinux.bin \
 -c boot/isolinux/boot.cat -no-emul-boot -boot-load-size 4 \
 -boot-info-table -sort sortlist -V "My Custom XenServer ISO" -o customxs.iso ./xstgt/
 
-# Convert and attach the raw image to the machine
-vboxmanage storagectl STUFF --name "IDECONTROLLER" --remove || true
-#vboxmanage closemedium disk xsdrive.vdi --delete
-
-#vboxmanage convertfromraw xsdrive.raw xsdrive.vdi --format VDI
-
-vboxmanage storagectl STUFF --name "IDECONTROLLER" --add ide
-vboxmanage storageattach "STUFF" --storagectl IDECONTROLLER --type dvddrive --medium "`pwd`/customxs.iso" --port 0 --device 0
