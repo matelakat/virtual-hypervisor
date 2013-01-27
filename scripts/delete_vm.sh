@@ -1,12 +1,8 @@
 #!/bin/bash
 set -eux
 
-vboxmanage controlvm "STUFF" poweroff || true
-
-while ! vboxmanage showvminfo "STUFF" | grep -q "powered off";
+while ! vboxmanage unregistervm "STUFF" --delete;
 do
-    echo "Waiting for machine to shut down"
+    vboxmanage controlvm "STUFF" poweroff || true
     sleep 1;
 done
-
-vboxmanage unregistervm "STUFF" --delete

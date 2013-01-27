@@ -7,6 +7,6 @@ sleep 60
 rm -f /etc/rc3.d/S99zzpostinstall
 
 touch /tmp/firstboot.sh.executed
-# Final Reboot
-reboot
 
+# Shut down the computer
+halt -p
