@@ -53,7 +53,7 @@ the ssh port of the VM is forwarded to the host's 2222 port.
 
 What is the Password?
 =====================
-The password for the root user is (look at data/answers.txt):
+The password for the root user is (look at data/answerfile.xml):
 
     somepass
 
