@@ -40,7 +40,7 @@ cd ..
 rm -rf ./initrd
 
 # bash --rcfile /dev/null -i
-cp syslinux.cfg ./xstgt/boot/isolinux/isolinux.cfg
+cp ./data/syslinux.cfg ./xstgt/boot/isolinux/isolinux.cfg
 
 echo '/boot 1000' > sortlist
 mkisofs -joliet -joliet-long -r -b boot/isolinux/isolinux.bin \
