@@ -23,9 +23,18 @@ important thing, is that there needs to be a file with the name:
 
     hypervisor.iso
 
-Create a new Virtual Machine with XCP/XenServer Inside
-======================================================
-To create a new VM with XCP installed inside, all you have to do, is to run:
+Create a Custom XenServer/XCP iso
+=================================
+This is a script, that unpacks a XenServer/XCP iso, modifies the initial root
+disk, and the isolinux configuration, and packs back the modified files to a
+new iso. The new iso is performing an automated installation, and shuts down
+the computer (the VM) after the first boot.
+
+    ./scripts/create_customxs_iso.sh
+
+Create and Start a New VM with the Remastered iso
+=================================================
+To create a new VM with the remastered iso, all you have to do, is to run:
 
     ./create_virtual_hypervisor.sh
 
