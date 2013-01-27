@@ -9,6 +9,8 @@
 
 set -eux
 
+[ -e hypervisor.iso ]
+
 # extract iso
 rm -rf xstgt && mkdir -p xstgt && 7z x hypervisor.iso -oxstgt
 

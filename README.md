@@ -11,16 +11,28 @@ Requirements:
  - 64 bit machine, 64 bit operating system
  - KVM or VirtualBox
 
-Create a new Virtual Machine for XenServer
-==========================================
+Download XCP
+============
+You can download manually the latest xcp distribution, or you could use the
+script provided:
+
+    ./scripts/download_hypervisor_iso.sh
+
+If you would like to use a XenServer, please download the iso manually. The
+important thing, is that there needs to be a file with the name:
+
+    hypervisor.iso
+
+Create a new Virtual Machine with XCP/XenServer Inside
+======================================================
 To create a new VM with XCP installed inside, all you have to do, is to run:
 
-    ./setup.sh
+    ./create_virtual_hypervisor.sh
 
 This installs XCP on a KVM hypervisor. Should you wish to use VirtualBox,
 specify the virtualbox option:
 
-    ./setup.sh virtualbox
+    ./create_virtual_hypervisor.sh virtualbox
 
 As the script is finished, you should have a vm, with XCP installed inside. To
 start the vm, for the kvm case, you should type:
@@ -32,10 +44,9 @@ the ssh port of the VM is forwarded to the host's 2222 port.
 
 What is the Password?
 =====================
-The password for the root user is:
+The password for the root user is (look at scripts/create_customxs_iso.sh):
 
     somepass
-
 
 Uninstall
 =========
