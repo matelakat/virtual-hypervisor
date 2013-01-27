@@ -27,7 +27,7 @@ zcat ../xstgt/install.img | cpio -idum
 # Do the remastering
 cp ../data/answers.txt ./
 cp ../data/postinst.sh ./
-cp ../firstboot.sh ./
+cp ../data/firstboot.sh ./
 
 # Re-pack initrd
 find . -print | cpio -o -H newc | xz --format=lzma | dd of=../xstgt/install.img
