@@ -47,6 +47,8 @@ FAKEROOT
 
 cd ..
 
+rm -rf ./initrd
+
 # bash --rcfile /dev/null -i
 cp syslinux.cfg ./xstgt/boot/isolinux/isolinux.cfg
 
@@ -54,4 +56,6 @@ echo '/boot 1000' > sortlist
 mkisofs -joliet -joliet-long -r -b boot/isolinux/isolinux.bin \
 -c boot/isolinux/boot.cat -no-emul-boot -boot-load-size 4 \
 -boot-info-table -sort sortlist -V "My Custom XenServer ISO" -o customxs.iso ./xstgt/
+
+rm -rf ./xstgt
 
