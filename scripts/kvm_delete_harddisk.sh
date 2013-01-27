@@ -1,4 +1,4 @@
 #!/bin/bash
 set -eux
 
-rm -f customxs.iso
+rm -f stuff.qcow
