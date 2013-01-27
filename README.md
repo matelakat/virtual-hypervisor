@@ -2,8 +2,9 @@ openstack-at-home
 =================
 *Note: Under development, at the moment no openstack bits are installed,
 Just XCP/XenServer bits*
-This repository contains all the scripts, notes, information that could be
-useful for installing a XenServer/XCP based OpenStack cloud at home.
+
+This repository is created to provide an easy way for installing a
+XenServer/XCP based OpenStack cloud at home, for development purposes.
 
 Requirements:
 
