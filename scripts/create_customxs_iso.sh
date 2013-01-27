@@ -25,7 +25,7 @@ cat << FAKEROOT
 zcat ../xstgt/install.img | cpio -idum
 
 # Do the remastering
-cp ../data/answers.txt ./
+cp ../data/answerfile.xml ./
 cp ../data/postinst.sh ./
 cp ../data/firstboot.sh ./
 
