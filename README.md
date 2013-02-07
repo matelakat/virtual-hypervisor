@@ -1,14 +1,10 @@
-openstack-at-home
-=================
-*Note: Under development, at the moment no openstack bits are installed,
-Just XCP/XenServer bits*
-
-This repository is created to provide an easy way for installing a
-XenServer/XCP based OpenStack cloud at home, for development purposes.
+Virtual Hypervisor
+==================
+Scripted way for installing a virtual XenServer/XCP hypervisor.
 
 Requirements:
 
- - 64 bit machine, 64 bit operating system
+ - 64 bit machine, 64 bit operating system (tested on Ubuntu 12.04)
  - KVM or VirtualBox
 
 Download XCP
@@ -18,17 +14,12 @@ script provided:
 
     ./scripts/download_hypervisor_iso.sh
 
-If you would like to use a XenServer, please download the iso manually. The
-important thing, is that there needs to be a file with the name:
-
-    hypervisor.iso
+If you would like to use a XenServer, please download the iso manually, and
+place the downloaded iso to this directory, with the name `hypervisor.iso`
 
 Create a Custom XenServer/XCP iso
 =================================
-This is a script, that unpacks a XenServer/XCP iso, modifies the initial root
-disk, and the isolinux configuration, and packs back the modified files to a
-new iso. The new iso is performing an automated installation, and shuts down
-the computer (the VM) after the first boot.
+Remaster the downloaded iso, so that it installs the hypervisor automatically.
 
     ./scripts/create_customxs_iso.sh
 
@@ -38,13 +29,13 @@ To create a new VM with the remastered iso, all you have to do, is to run:
 
     ./create_virtual_hypervisor.sh
 
-This installs XCP on a KVM hypervisor. Should you wish to use VirtualBox,
-specify the virtualbox option:
+This installs the hypervisor on KVM. Should you wish to use VirtualBox, specify
+the virtualbox option:
 
     ./create_virtual_hypervisor.sh virtualbox
 
-As the script is finished, you should have a vm, with XCP installed inside. To
-start the vm, for the kvm case, you should type:
+As the script is finished, you should have a vm, with the hypervisor installed
+inside. To start the vm, for the kvm case, you should type:
 
     ./scripts/kvm_start_vm.sh
 
@@ -70,22 +61,3 @@ Run:
     ./teardown.sh
 
 This will remove the VM, and the generated iso.
-
-Some Measurements
-=================
-
-VirtualBox:
-
-    time scripts/start_vm_and_wait_for_shut.sh
-
-    real    5m57.379s
-    user    0m23.965s
-    sys     4m4.603s
-
-KVM:
-
-    time scripts/kvm_start_vm_with_cdrom.sh
-
-    real    5m34.585s
-    user    2m47.986s
-    sys     1m13.957s
