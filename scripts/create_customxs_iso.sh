@@ -9,13 +9,28 @@
 
 set -eu
 
-[ -e hypervisor.iso ]
+function print_usage_and_quit
+{
+cat << USAGE >&2
+usage: $(basename $0) ISOFILE
+
+Re-master a XS/XCP iso file for unattended operation.
+
+Positional arguments:
+ ISOFILE - XS/XCP iso file
+USAGE
+exit 1
+}
+
+ORIGINAL_ISO="${1-$(print_usage_and_quit)}"
+
+[ -e "$ORIGINAL_ISO" ]
 
 TOP_DIR=$(cd $(dirname "$0") && cd .. && pwd)
 ISOROOT=`mktemp -d`
 
 # extract iso
-7z x "hypervisor.iso" "-o${ISOROOT}"
+7z x "$ORIGINAL_ISO" "-o${ISOROOT}"
 
 
 INITRDROOT=`mktemp -d`

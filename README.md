@@ -14,14 +14,16 @@ script provided to download XCP 1.6 :
 
     ./scripts/download_hypervisor_iso.sh
 
-If you would like to use a XenServer, please download the iso manually, and
-place the downloaded iso to this directory, with the name `hypervisor.iso`
+If you would like to use a XenServer, please download the iso manually.
 
 Create a Custom XenServer/XCP iso
 =================================
-Remaster the downloaded iso, so that it installs the hypervisor automatically.
+Remaster a XenServer/XCP iso, so that it installs automatically. Specify the
+downloaded iso file as a parameter.
 
-    ./scripts/create_customxs_iso.sh
+    ./scripts/create_customxs_iso.sh hypervisor.iso
+
+This script should create a file, called `customxs.iso`
 
 Create and Start a New VM with the Remastered iso
 =================================================
