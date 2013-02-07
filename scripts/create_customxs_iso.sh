@@ -11,11 +11,11 @@ set -eu
 
 [ -e hypervisor.iso ]
 
-WORKINGDIR=`pwd`
+TOP_DIR=$(cd $(dirname "$0") && cd .. && pwd)
 ISOROOT=`mktemp -d`
 
 # extract iso
-7z x "$WORKINGDIR/hypervisor.iso" "-o${ISOROOT}"
+7z x "hypervisor.iso" "-o${ISOROOT}"
 
 
 INITRDROOT=`mktemp -d`
@@ -25,9 +25,9 @@ cd "$INITRDROOT"
 zcat "$ISOROOT/install.img" | cpio -idum
 
 # Do the remastering
-cp "$WORKINGDIR/data/answerfile.xml" ./
-cp "$WORKINGDIR/data/postinst.sh" ./
-cp "$WORKINGDIR/data/firstboot.sh" ./
+cp "$TOP_DIR/data/answerfile.xml" ./
+cp "$TOP_DIR/data/postinst.sh" ./
+cp "$TOP_DIR/data/firstboot.sh" ./
 
 # Re-pack initrd
 find . -print | cpio -o -H newc | xz --format=lzma | dd of="${ISOROOT}/install.img"
@@ -35,7 +35,7 @@ FAKEROOT
 
 rm -rf "$INITRDROOT"
 
-cp "${WORKINGDIR}/data/isolinux.cfg" "${ISOROOT}/boot/isolinux/isolinux.cfg"
+cp "$TOP_DIR/data/isolinux.cfg" "${ISOROOT}/boot/isolinux/isolinux.cfg"
 
 echo '/boot 1000' > sortlist
 mkisofs -joliet -joliet-long -r -b boot/isolinux/isolinux.bin \
