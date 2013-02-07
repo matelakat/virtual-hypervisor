@@ -10,7 +10,7 @@ Requirements:
 Download XCP
 ============
 You can download manually the latest xcp distribution, or you could use the
-script provided:
+script provided to download XCP 1.6 :
 
     ./scripts/download_hypervisor_iso.sh
 
