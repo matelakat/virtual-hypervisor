@@ -4,7 +4,7 @@ set -eux
 function print_usage_and_quit
 {
 cat << USAGE >&2
-usage: $(basename $0) ISOFILE XENSERVER NETWORK_NAME
+usage: $(basename $0) ISOFILE XENSERVER NETWORK_NAME MACHINE_NAME
 
 Upload an iso file, and import it as an sr
 
@@ -12,6 +12,7 @@ Positional arguments:
  ISOFILE - iso file
  XENSERVER - a xenserver/xcp host
  NETWORK_NAME - the network to connect to
+ MACHINE_NAME - the name of the machine to start
 USAGE
 exit 1
 }
@@ -42,7 +43,7 @@ rm -rf $STAGING_DIR
 ISO_FILE="${1-$(print_usage_and_quit)}"
 XENSERVER="${2-$(print_usage_and_quit)}"
 NETWORK_NAME="${3-$(print_usage_and_quit)}"
-
+MACHINE_NAME="${4-$(print_usage_and_quit)}"
 
 THIS_DIR=$(dirname $(readlink -f $0))
 create_archive "$ISO_FILE" "$THIS_DIR/_xs_vm_starter.sh" |
