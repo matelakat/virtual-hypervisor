@@ -4,17 +4,20 @@ set -eux
 function print_usage_and_quit
 {
 cat << USAGE >&2
-usage: $(basename $0) NETWORK_NAME
+usage: $(basename $0) NETWORK_NAME MACHINE_NAME
 
-Start a VM on the NETWORK_NAME
+Start a VM with the name MACHINE_NAME on the network called NETWORK_NAME,
+proceeding an automatic xenserver installation.
 
 Positional arguments:
  NETWORK_NAME - the network to connect to
+ MACHINE_NAME - a name for the machine
 USAGE
 exit 1
 }
 
 NETWORK_NAME="${1-$(print_usage_and_quit)}"
+MACHINE_NAME="${2-$(print_usage_and_quit)}"
 
 REPODIR=$(mktemp -d)
 
@@ -24,7 +27,7 @@ SR=$(xe sr-create name-label=CUSTOMXSISO type=iso device-config:location="$REPOD
 PBD=$(xe pbd-list sr-uuid=$SR --minimal)
 
 # VM install
-VXS=$(xe vm-install template="Other install media" new-name-label="VXS")
+VXS=$(xe vm-install template="Other install media" new-name-label="$MACHINE_NAME")
 NETWORK=$(xe network-list name-label="$NETWORK_NAME" --minimal)
 MEM="6GiB"
 
