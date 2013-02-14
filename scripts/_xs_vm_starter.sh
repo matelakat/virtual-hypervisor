@@ -66,3 +66,4 @@ rm -rf "$REPODIR"
 
 # Wait for shut
 while ! xe vm-param-get param-name=power-state uuid=$VXS | grep -q halted; do sleep 1; done
+xe vm-param-set uuid=$VXS name-label="$MACHINE_NAME"
