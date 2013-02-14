@@ -32,7 +32,7 @@ NETWORK=$(xe network-list name-label="$NETWORK_NAME" --minimal)
 MEM="6GiB"
 
 # Networking
-xe vif-create vm-uuid=$VXS network-uuid=$NETWORK device=0
+_VIF=$(xe vif-create vm-uuid=$VXS network-uuid=$NETWORK device=0)
 
 # Memory
 xe vm-memory-limits-set uuid=$VXS static-min=$MEM dynamic-min=$MEM dynamic-max=$MEM static-max=$MEM
@@ -49,7 +49,7 @@ xe vm-start uuid=$VXS
 xe vm-param-set uuid=$VXS name-label="$MACHINE_NAME - booted from iso (Step 2 of 3)"
 
 # Wait for shut
-while ! xe vm-param-get param-name=power-state uuid=$VXS | grep halted; do sleep 1; done
+while ! xe vm-param-get param-name=power-state uuid=$VXS | grep -q halted; do sleep 1; done
 
 # Set back normal behavior
 xe vm-param-set uuid=$VXS actions-after-reboot=Restart
@@ -65,4 +65,4 @@ xe sr-forget uuid=$SR
 rm -rf "$REPODIR"
 
 # Wait for shut
-while ! xe vm-param-get param-name=power-state uuid=$VXS | grep halted; do sleep 1; done
+while ! xe vm-param-get param-name=power-state uuid=$VXS | grep -q halted; do sleep 1; done
