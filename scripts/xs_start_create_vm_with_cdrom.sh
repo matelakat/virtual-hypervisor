@@ -1,5 +1,5 @@
 #!/bin/bash
-set -eux
+set -eu
 
 function print_usage_and_quit
 {
