@@ -16,8 +16,6 @@ exit 1
 
 NETWORK_NAME="${1-$(print_usage_and_quit)}"
 
-exit 0
-
 REPODIR=$(mktemp -d)
 
 mv customxs.iso "$REPODIR/"
