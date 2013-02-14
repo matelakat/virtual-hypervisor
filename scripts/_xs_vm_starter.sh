@@ -58,3 +58,6 @@ xe pbd-unplug uuid=$PBD
 xe sr-forget uuid=$SR
 
 rm -rf "$REPODIR"
+
+# Wait for shut
+while ! xe vm-param-get param-name=power-state uuid=$VXS | grep halted; do sleep 1; done
