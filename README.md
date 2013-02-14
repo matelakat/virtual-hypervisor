@@ -5,7 +5,8 @@ Scripted way for installing a virtual XenServer/XCP hypervisor.
 Requirements:
 
  - 64 bit machine, 64 bit operating system (tested on Ubuntu 12.04)
- - KVM or VirtualBox
+ - XCP/XenServer or KVM or VirtualBox
+ - Ubuntu packages: `p7zip-full genisoimage fakeroot`
 
 Download XCP
 ============
@@ -25,8 +26,20 @@ downloaded iso file as a parameter.
 
 This script should create a file, called `customxs.iso`
 
-Create and Start a New VM with the Remastered iso
-=================================================
+Create and Start the Virtual Hypervisor
+=======================================
+On XenServer/XCP (Recommended)
+------------------------------
+Given, your network's name is `net` and your xenserver  host is
+`xshost.somedomain`, and you want to give the name `VMH1` to your new virtual
+hypervisor, you should type:
+
+    scripts/xs_start_create_vm_with_cdrom.sh customxs.iso xshost.somedomain net VMH1
+
+After this, you'll have a virtual hypervisor installed with the name `VMH1`.
+    
+On VirtualBox or KVM
+--------------------
 To create a new VM with the remastered iso, all you have to do, is to run:
 
     ./create_virtual_hypervisor.sh
