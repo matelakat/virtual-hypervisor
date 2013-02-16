@@ -18,6 +18,7 @@ optional arguments:
  -m     netmask
  -g     gateway
  -p     password for the new system DEFAULT: somepass
+ -n     nameserver
 USAGE
 exit 1
 }
@@ -42,8 +43,9 @@ IP=""
 NETMASK=""
 GATEWAY=""
 PASSWORD="somepass"
+NAMESERVER=""
 
-while getopts ":h:i:m:g:p:" opt; do
+while getopts ":h:i:m:g:p:n:" opt; do
   case $opt in
     h)
       HOSTNAME="$OPTARG"
@@ -59,6 +61,9 @@ while getopts ":h:i:m:g:p:" opt; do
       ;;
     p)
       PASSWORD="$OPTARG"
+      ;;
+    n)
+      NAMESERVER="$OPTARG"
       ;;
     \?)
       echo "Invalid option: -$OPTARG" >&2
@@ -100,6 +105,13 @@ if [ ! -z "$HOSTNAME" ]
 then
 cat << EOF
 <hostname>$HOSTNAME</hostname>
+EOF
+fi
+
+if [ ! -z "$NAMESERVER" ]
+then
+cat << EOF
+<nameserver>$NAMESERVER</nameserver>
 EOF
 fi
 
