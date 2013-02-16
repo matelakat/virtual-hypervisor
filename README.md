@@ -25,7 +25,12 @@ The answerfile could be generated to the standard output, by:
 
     ./scripts/generate_answerfile.sh dhcp > answers
 
-Please run the command to see the various options available.
+### Static IP example
+This example should work with KVM
+
+    ./scripts/generate_answerfile.sh static -h myvirtserv -i 10.0.2.69 -m 255.255.255.0 -g 10.0.2.2 > answers
+
+Please run `scripts/generate_answerfile.sh` to see the various options available.
 
 Generate the ISO
 ----------------
