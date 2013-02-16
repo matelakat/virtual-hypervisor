@@ -21,9 +21,11 @@ Create a Custom XenServer/XCP iso
 =================================
 Generate an Answerfile
 ----------------------
-The answerfile could be generated, by:
+The answerfile could be generated to the standard output, by:
 
-    ./scripts/generate_answerfile.sh > answers
+    ./scripts/generate_answerfile.sh dhcp > answers
+
+Please run the command to see the various options available.
 
 Generate the ISO
 ----------------
