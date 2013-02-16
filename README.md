@@ -81,7 +81,8 @@ The virtual hypervisor's ssh port is forwarded to your localhost's 2222 port.
 
 What is the Password?
 =====================
-The password for the root user is (look at data/answerfile.xml):
+The password for the root user could be found in the generated answerfile. It
+could be set with via commandline options. The default password is:
 
     somepass
 

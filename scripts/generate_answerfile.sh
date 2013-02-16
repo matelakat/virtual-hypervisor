@@ -17,6 +17,7 @@ optional arguments:
  -i     ip address
  -m     netmask
  -g     gateway
+ -p     password for the new system DEFAULT: somepass
 USAGE
 exit 1
 }
@@ -29,7 +30,7 @@ case $NETWORK_CONFIG in
  static)
   ;;
  *)
-  echo "Invalid network configuration" >&2
+  echo "Invalid network configuration: $NETWORK_CONFIG" >&2
   print_usage_and_quit
   ;;
 esac
@@ -40,8 +41,9 @@ HOSTNAME=""
 IP=""
 NETMASK=""
 GATEWAY=""
+PASSWORD="somepass"
 
-while getopts ":h:i:m:g:" opt; do
+while getopts ":h:i:m:g:p:" opt; do
   case $opt in
     h)
       HOSTNAME="$OPTARG"
@@ -55,6 +57,9 @@ while getopts ":h:i:m:g:" opt; do
     g)
       GATEWAY="$OPTARG"
       ;;
+    p)
+      PASSWORD="$OPTARG"
+      ;;
     \?)
       echo "Invalid option: -$OPTARG" >&2
       print_usage_and_quit
@@ -67,7 +72,7 @@ cat << EOF
 <installation srtype="ext">
 <primary-disk>sda</primary-disk>
 <keymap>us</keymap>
-<root-password>somepass</root-password>
+<root-password>$PASSWORD</root-password>
 <source type="local"></source>
 EOF
 
