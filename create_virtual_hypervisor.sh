@@ -14,7 +14,7 @@ scripts/virtualbox_detach_customxs_iso.sh
   "kvm" )
 scripts/kvm_create_harddisk.sh
 
-scripts/kvm_start_vm_with_cdrom.sh
+scripts/kvm_start_vm_with_cdrom.sh "customxs.iso"
 ;;
   * )
 echo "ERROR: Please specify hypervisor to use (kvm or virtualbox)"

@@ -20,11 +20,9 @@ If you would like to use a XenServer, please download the iso manually.
 Create a Custom XenServer/XCP iso
 =================================
 Remaster a XenServer/XCP iso, so that it installs automatically. Specify the
-downloaded iso file as a parameter.
+downloaded iso file as a parameter, and the target iso as the second.
 
-    ./scripts/create_customxs_iso.sh hypervisor.iso
-
-This script should create a file, called `customxs.iso`
+    ./scripts/create_customxs_iso.sh hypervisor.iso customxs.iso
 
 Create and Start the Virtual Hypervisor
 =======================================
@@ -40,6 +38,9 @@ After this, you'll have a virtual hypervisor installed with the name `VMH1`.
     
 On VirtualBox or KVM
 --------------------
+There are simple scripts, which assume, you have `customxs.iso` in your working
+directory, and use that to install a hypervisor.
+
 To create a new VM with the remastered iso, all you have to do, is to run:
 
     ./create_virtual_hypervisor.sh

@@ -12,17 +12,19 @@ set -eu
 function print_usage_and_quit
 {
 cat << USAGE >&2
-usage: $(basename $0) ISOFILE
+usage: $(basename $0) ISOFILE TARGET
 
 Re-master a XS/XCP iso file for unattended operation.
 
 Positional arguments:
  ISOFILE - XS/XCP iso file
+ TARGET  - The target iso file to produce
 USAGE
 exit 1
 }
 
 ORIGINAL_ISO="${1-$(print_usage_and_quit)}"
+TARGET_ISO="${2-$(print_usage_and_quit)}"
 
 [ -e "$ORIGINAL_ISO" ]
 
@@ -54,11 +56,11 @@ rm -rf "$INITRDROOT"
 
 cp "$TOP_DIR/data/isolinux.cfg" "${ISOROOT}/boot/isolinux/isolinux.cfg"
 
-echo "Create new iso: customxs.iso"
+echo "Create new iso: $TARGET_ISO"
 echo '/boot 1000' > sortlist
 mkisofs -quiet -joliet -joliet-long -r -b boot/isolinux/isolinux.bin \
 -c boot/isolinux/boot.cat -no-emul-boot -boot-load-size 4 \
--boot-info-table -sort sortlist -V "My Custom XenServer ISO" -o customxs.iso "$ISOROOT"
+-boot-info-table -sort sortlist -V "My Custom XenServer ISO" -o "$TARGET_ISO" "$ISOROOT"
 
 echo "Removing $ISOROOT"
 rm -rf "$ISOROOT"
