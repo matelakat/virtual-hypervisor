@@ -19,10 +19,18 @@ If you would like to use a XenServer, please download the iso manually.
 
 Create a Custom XenServer/XCP iso
 =================================
-Remaster a XenServer/XCP iso, so that it installs automatically. Specify the
-downloaded iso file as a parameter, and the target iso as the second.
+Generate an Answerfile
+----------------------
+The answerfile could be generated, by:
 
-    ./scripts/create_customxs_iso.sh hypervisor.iso customxs.iso
+    ./scripts/generate_answerfile.sh > answers
+
+Generate the ISO
+----------------
+Remaster a XenServer/XCP iso, so that it installs automatically. Specify the
+downloaded iso file, the target iso, and the answerfile
+
+    ./scripts/create_customxs_iso.sh hypervisor.iso customxs.iso answers
 
 Create and Start the Virtual Hypervisor
 =======================================

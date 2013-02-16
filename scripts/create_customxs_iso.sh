@@ -12,19 +12,23 @@ set -eu
 function print_usage_and_quit
 {
 cat << USAGE >&2
-usage: $(basename $0) ISOFILE TARGET
+usage: $(basename $0) ISOFILE TARGET ANSWERFILE
 
 Re-master a XS/XCP iso file for unattended operation.
 
 Positional arguments:
  ISOFILE - XS/XCP iso file
  TARGET  - The target iso file to produce
+ ANSWERFILE - Answerfile to use
 USAGE
 exit 1
 }
 
 ORIGINAL_ISO="${1-$(print_usage_and_quit)}"
 TARGET_ISO="${2-$(print_usage_and_quit)}"
+ANSWERFILE="${3-$(print_usage_and_quit)}"
+
+ANSWERFILE=$(readlink -f "$ANSWERFILE")
 
 [ -e "$ORIGINAL_ISO" ]
 
@@ -43,7 +47,7 @@ cd "$INITRDROOT"
 zcat "$ISOROOT/install.img" | cpio -idum --quiet
 
 # Do the remastering
-cp "$TOP_DIR/data/answerfile.xml" ./
+cat "$ANSWERFILE" > "./answerfile.xml"
 cp "$TOP_DIR/data/postinst.sh" ./
 cp "$TOP_DIR/data/firstboot.sh" ./
 
