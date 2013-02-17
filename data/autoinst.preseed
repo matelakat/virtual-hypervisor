@@ -1,8 +1,7 @@
 #### Contents of the preconfiguration file (for squeeze)
 ### Localization
 # Preseeding only locale sets language, country and locale.
-# BOOTPARAM
-#d-i debian-installer/locale string en_GB
+d-i debian-installer/locale string en_GB
 
 # The values can also be preseeded individually for greater flexibility.
 #d-i debian-installer/language string en
@@ -15,8 +14,7 @@
 # Disable automatic (interactive) keymap detection.
 d-i console-setup/ask_detect boolean false
 #d-i keyboard-configuration/modelcode string pc105
-# BOOTPARAM
-#d-i keyboard-configuration/layoutcode string gb
+d-i keyboard-configuration/layoutcode string gb
 # To select a variant of the selected layout (if you leave this out, the
 # basic form of the layout will be used):
 #d-i keyboard-configuration/variantcode string dvorak
@@ -50,7 +48,7 @@ d-i netcfg/disable_autoconfig boolean true
 #d-i netcfg/dhcp_options select Configure network manually
 
 # Static network configuration.
-d-i netcfg/get_nameservers string 10.0.2.2
+d-i netcfg/get_nameservers string 10.0.2.3
 d-i netcfg/get_ipaddress string 10.0.2.69
 d-i netcfg/get_netmask string 255.255.255.0
 d-i netcfg/get_gateway string 10.0.2.2

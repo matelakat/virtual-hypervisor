@@ -54,7 +54,7 @@ function set_preseed
 
 function set_timeout
 {
-    sed -ie 's/^\(timeout\) .*/\1 10/g' "$1/preseed/autoinst.seed"
+    sed -ie 's/^\(timeout\) .*/\1 10/g' "$1/isolinux/isolinux.cfg"
 }
 
 function create_iso
