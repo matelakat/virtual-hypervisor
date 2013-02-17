@@ -82,8 +82,8 @@ d-i netcfg/wireless_wep string
 # If you select ftp, the mirror/country string does not need to be set.
 #d-i mirror/protocol string ftp
 #d-i mirror/country string manual
-d-i mirror/http/hostname string www.mirrorservice.org
-d-i mirror/http/directory string /sites/archive.ubuntu.com/ubuntu/
+d-i mirror/http/hostname string mirror.as29550.net
+d-i mirror/http/directory string /archive.ubuntu.com/
 d-i mirror/http/proxy string
 
 # Alternatively: by default, the installer uses CC.archive.ubuntu.com where
