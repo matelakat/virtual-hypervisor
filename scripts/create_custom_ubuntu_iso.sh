@@ -49,7 +49,7 @@ function set_menu
 
 function set_preseed
 {
-    cp "$1" "$2/preseed/autoinst.seed"
+    cp "$1" "$2/autoinst.seed"
 }
 
 function set_timeout
