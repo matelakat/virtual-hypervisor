@@ -43,6 +43,11 @@ xe vm-disk-add disk-size=80GiB uuid=$VXS device=0
 # CD
 xe vm-cd-add cd-name=customxs.iso uuid=$VXS device=1
 
+# Set number of processors
+CPUCOUNT=$(cat /proc/cpuinfo | grep processor | wc -l)
+xe vm-param-set uuid=$VXS VCPUs-max=$CPUCOUNT
+xe vm-param-set uuid=$VXS VCPUs-at-startup=$CPUCOUNT
+
 # First-time start
 xe vm-param-set uuid=$VXS actions-after-reboot=Destroy
 xe vm-start uuid=$VXS
