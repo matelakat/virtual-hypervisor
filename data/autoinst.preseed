@@ -23,7 +23,7 @@ d-i keyboard-configuration/layoutcode string gb
 # Disable network configuration entirely. This is useful for cdrom
 # installations on non-networked devices where the network questions,
 # warning and long timeouts are a nuisance.
-#d-i netcfg/enable boolean false
+d-i netcfg/enable boolean false
 
 # netcfg will choose an interface that has link if possible. This makes it
 # skip displaying a list if there is more than one interface.
@@ -39,7 +39,7 @@ d-i keyboard-configuration/layoutcode string gb
 
 # If you prefer to configure the network manually, uncomment this line and
 # the static network configuration below.
-d-i netcfg/disable_autoconfig boolean true
+# d-i netcfg/disable_autoconfig boolean true
 
 # If you want the preconfiguration file to work on systems both with and
 # without a dhcp server, uncomment these lines and the static network
@@ -47,12 +47,12 @@ d-i netcfg/disable_autoconfig boolean true
 #d-i netcfg/dhcp_failed note
 #d-i netcfg/dhcp_options select Configure network manually
 
-# Static network configuration.
-d-i netcfg/get_nameservers string 10.0.2.3
-d-i netcfg/get_ipaddress string 10.0.2.69
-d-i netcfg/get_netmask string 255.255.255.0
-d-i netcfg/get_gateway string 10.0.2.2
-d-i netcfg/confirm_static boolean true
+# Static network configuration. Aligned to qemu
+# d-i netcfg/get_nameservers string 10.0.2.3
+# d-i netcfg/get_ipaddress string 10.0.2.69
+# d-i netcfg/get_netmask string 255.255.255.0
+# d-i netcfg/get_gateway string 10.0.2.2
+# d-i netcfg/confirm_static boolean true
 
 # Any hostname and domain names assigned from dhcp take precedence over
 # values set here. However, setting the values still prevents the questions
@@ -92,7 +92,7 @@ d-i mirror/http/proxy string
 #d-i mirror/http/mirror select CC.archive.ubuntu.com
 
 # Suite to install.
-d-i mirror/suite string precise
+d-i mirror/suite string raring
 # Suite to use for loading installer components (optional).
 #d-i mirror/udeb/suite string squeeze
 # Components to use for loading installer components (optional).
@@ -308,7 +308,7 @@ d-i user-setup/encrypt-home boolean false
 #d-i apt-setup/universe boolean true
 #d-i apt-setup/backports boolean true
 # Uncomment this if you don't want to use a network mirror.
-#d-i apt-setup/use_mirror boolean false
+d-i apt-setup/use_mirror boolean false
 # Select which update services to use; define the mirrors to be used.
 # Values shown below are the normal defaults.
 #d-i apt-setup/services-select multiselect security
@@ -423,7 +423,7 @@ d-i finish-install/reboot_in_progress note
 # reboot into the installed system.
 #d-i debian-installer/exit/halt boolean true
 # This will power off the machine instead of just halting it.
-#d-i debian-installer/exit/poweroff boolean true
+d-i debian-installer/exit/poweroff boolean true
 
 ### X configuration
 # X can detect the right driver for some cards, but if you're preseeding,

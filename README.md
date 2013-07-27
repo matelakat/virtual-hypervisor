@@ -93,3 +93,24 @@ Run:
     ./teardown.sh
 
 This will remove the VM, and the generated iso.
+
+Offline Unattended Ubuntu Install
+=================================
+
+You need to use raring, due to these bugs:
+
+ - https://bugs.launchpad.net/ubuntu/+source/preseed/+bug/1024735
+ - https://bugs.launchpad.net/ubuntu/+source/netcfg/+bug/901700
+
+Steps:
+
+    $ wget http://mirror.as29550.net/releases.ubuntu.com/13.04/ubuntu-13.04-server-amd64.iso
+
+    $ qemu-img create hda 4G
+
+    $ scripts/create_custom_ubuntu_iso.sh ubuntu-13.04-server-amd64.iso ubuntu_modded.iso data/autoinst.preseed
+
+    $ time kvm -enable-kvm -m 4192 -cdrom ubuntu_modded.iso -vnc :1 -boot d hda 
+    real5m7.610s
+    user2m38.022s
+    sys2m13.128s
