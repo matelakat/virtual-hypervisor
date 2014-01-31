@@ -40,6 +40,6 @@ stage "$STAGING_DIR" "$ISO_FILE" customxs.iso
 stage "$STAGING_DIR" "$THIS_DIR/_xs_vm_starter.sh" starter.sh
 
 tar -C "$STAGING_DIR" -chzf - . |
-ssh "root@$XENSERVER" "mkdir vh && cd vh && tar -xzf - && bash starter.sh $NETWORK_NAME $MACHINE_NAME && cd .. && rm -rf vh"
+ssh -o StrictHostKeyChecking=no "root@$XENSERVER" "mkdir -p vh && cd vh && tar -xzf - && bash starter.sh $NETWORK_NAME $MACHINE_NAME && cd .. && rm -rf vh"
 
 rm -rf "$STAGING_DIR"
