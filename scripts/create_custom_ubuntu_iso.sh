@@ -59,7 +59,9 @@ function set_timeout
 
 function create_iso
 {
-    mkisofs -r -V "Automated Ubuntu Install CD" \
+    isocmd="mkisofs"
+    command -v "$isocmd" >/dev/null 2>&1 || isocmd="genisoimage"
+    $isocmd -r -V "Automated Ubuntu Install CD" \
     -cache-inodes \
     -J -l -b isolinux/isolinux.bin \
     -c isolinux/boot.cat -no-emul-boot \

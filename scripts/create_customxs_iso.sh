@@ -62,7 +62,9 @@ cp "$TOP_DIR/data/isolinux.cfg" "${ISOROOT}/boot/isolinux/isolinux.cfg"
 
 echo "Create new iso: $TARGET_ISO"
 echo '/boot 1000' > sortlist
-mkisofs -quiet -joliet -joliet-long -r -b boot/isolinux/isolinux.bin \
+isocmd="mkisofs"
+command -v "$isocmd" >/dev/null 2>&1 || isocmd="genisoimage"
+$isocmd -quiet -joliet -joliet-long -r -b boot/isolinux/isolinux.bin \
 -c boot/isolinux/boot.cat -no-emul-boot -boot-load-size 4 \
 -boot-info-table -sort sortlist -V "My Custom XenServer ISO" -o "$TARGET_ISO" "$ISOROOT"
 
