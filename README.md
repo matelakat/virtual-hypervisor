@@ -6,7 +6,7 @@ Requirements:
 
  - 64 bit machine, 64 bit operating system (tested on Ubuntu 12.04)
  - XCP/XenServer or KVM or VirtualBox
- - Ubuntu packages: `p7zip-full genisoimage fakeroot`
+ - Ubuntu packages: `p7zip-full genisoimage fakeroot fuseiso`
 
 Download XCP
 ============

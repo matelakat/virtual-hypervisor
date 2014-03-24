@@ -32,13 +32,13 @@ function extract_iso
     TEMPTGT=$(mktemp -d)
     echo "Mounting $1 to $TEMPTGT"
 
-    sudo mount -o loop "$1" "$TEMPTGT"
+    fuseiso "$1" "$TEMPTGT"
 
     echo "Copying $TEMPTGT to $2"
     tar -cf - -C "$TEMPTGT" ./ | tar -xf - -C "$2"
     chmod -R u+w "$2"
 
-    sudo umount "$TEMPTGT"
+    fusermount -u "$TEMPTGT"
     rm -rf "$TEMPTGT"
 }
 
