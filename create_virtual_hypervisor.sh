@@ -15,6 +15,8 @@ scripts/virtualbox_detach_customxs_iso.sh
 scripts/kvm_create_harddisk.sh
 
 scripts/kvm_start_vm_with_cdrom.sh "customxs.iso"
+echo "First boot..."
+scripts/kvm_start_vm.sh
 ;;
   * )
 echo "ERROR: Please specify hypervisor to use (kvm or virtualbox)"
@@ -23,4 +25,4 @@ exit 1
 
 esac
 
-echo "XCP Setup completed"
+echo "XenServer Setup completed"

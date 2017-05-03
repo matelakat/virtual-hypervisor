@@ -49,15 +49,11 @@ xe vm-param-set uuid=$VXS VCPUs-max=$CPUCOUNT
 xe vm-param-set uuid=$VXS VCPUs-at-startup=$CPUCOUNT
 
 # First-time start
-xe vm-param-set uuid=$VXS actions-after-reboot=Destroy
 xe vm-start uuid=$VXS
 xe vm-param-set uuid=$VXS name-label="$MACHINE_NAME - booted from iso (Step 2 of 3)"
 
 # Wait for shut
 while ! xe vm-param-get param-name=power-state uuid=$VXS | grep -q halted; do sleep 1; done
-
-# Set back normal behavior
-xe vm-param-set uuid=$VXS actions-after-reboot=Restart
 
 # Start again, so install completes
 xe vm-start uuid=$VXS

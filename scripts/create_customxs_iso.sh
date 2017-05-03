@@ -43,16 +43,16 @@ INITRDROOT=`mktemp -d`
 
 echo "Remastering $ISOROOT/install.img"
 cat << FAKEROOT | fakeroot bash
+set -eu
 cd "$INITRDROOT"
-zcat "$ISOROOT/install.img" | cpio -idum --quiet
-
+bzip2 -dc "$ISOROOT/install.img" | cpio -idum --quiet
 # Do the remastering
 cat "$ANSWERFILE" > "./answerfile.xml"
 cp "$TOP_DIR/data/postinst.sh" ./
 cp "$TOP_DIR/data/firstboot.sh" ./
 
 # Re-pack initrd
-find . -print | cpio -o --quiet -H newc | xz --format=lzma > "${ISOROOT}/install.img"
+find . | cpio --create --format=newc | bzip2 -zc -9 > "${ISOROOT}/install.img"
 FAKEROOT
 
 echo "Removing $INITRDROOT"
