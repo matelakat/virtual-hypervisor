@@ -16,4 +16,4 @@ exit 1
 
 ISOFILE="${1-$(print_usage_and_quit)}"
 
-kvm -enable-kvm -m 4192 -cdrom "$ISOFILE" -vnc :1 -boot d stuff.qcow
+kvm -enable-kvm -m 4096 -cdrom "$ISOFILE" -vnc :1 -boot d stuff.qcow

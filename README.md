@@ -50,7 +50,7 @@ hypervisor, you should type:
     scripts/xs_start_create_vm_with_cdrom.sh customxs.iso xshost.somedomain net VMH1
 
 After this, you'll have a virtual hypervisor installed with the name `VMH1`.
-    
+
 On VirtualBox or KVM
 --------------------
 There are simple scripts, which assume, you have `customxs.iso` in your working
@@ -110,7 +110,7 @@ Steps:
 
     $ scripts/create_custom_ubuntu_iso.sh ubuntu-13.04-server-amd64.iso ubuntu_modded.iso data/autoinst.preseed
 
-    $ time kvm -enable-kvm -m 4192 -cdrom ubuntu_modded.iso -vnc :1 -boot d hda 
+    $ time kvm -enable-kvm -m 4096 -cdrom ubuntu_modded.iso -vnc :1 -boot d hda
     real5m7.610s
     user2m38.022s
     sys2m13.128s
